@@ -49,7 +49,7 @@ const restoreList = () => {
 const renderList = () => {
     var listitems_html = "";
     words_list.forEach(word => {
-        listitems_html += "<li>"+word+"</li>";
+        listitems_html += "<li class='list-group-item bg-info'>"+word+"</li>";
     });
     document.getElementById("words_list").innerHTML = listitems_html;
 }
@@ -61,7 +61,7 @@ const removeList = () => {
 const renderListHidden = () => {
     var listitems_hidden_html = "";
     words_list.forEach(word => {
-        listitems_hidden_html += "<li>**********</li>";
+        listitems_hidden_html += "<li class='list-group-item bg-info'>********</li>";
     });
     document.getElementById("words_list").innerHTML = listitems_hidden_html;
 }
