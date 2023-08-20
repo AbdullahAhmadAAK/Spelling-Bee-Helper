@@ -20,3 +20,4 @@
 7. User should be able to define his own words and pronnuciations for other languages. These pronunciations should be stored on browser's local storage too.
 8. User should get error if word's pronunciation is not found in any API, and the app should not let him add that word.
 9. User should be able to import and export his list of words (only words if in English, words and audio if in other languages)
+10. Better responsiveness and more user-friendly UI.
