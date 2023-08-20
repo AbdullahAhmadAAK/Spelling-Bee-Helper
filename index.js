@@ -57,8 +57,8 @@ const restoreList = () => {
 };
 const renderList = () => {
     var listitems_html = "";
-    words_list.forEach(word => {
-        listitems_html += "<li class='list-group-item bg-info d-flex align-items-center'><div class='col text-start'>"+word+"</div><div class='col text-end'><button class='btn btn-sm btn-warning mx-1'>Edit</button><button class='btn btn-sm btn-danger mx-1'>Delete</button></div></li>";
+    words_list.forEach((word, idx) => {
+        listitems_html += "<li class='list-group-item bg-info d-flex align-items-center'><div class='col text-start' id='listword"+idx+"'>"+word+"</div><div class='col text-end'><button class='btn btn-sm btn-warning mx-1' id='edit-update-btn-"+idx+"' onclick='toggleEditWord("+idx+")'>Edit</button><button class='btn btn-sm btn-danger mx-1' onclick='deleteWord("+idx+")'>Delete</button></div></li>";
     });
     document.getElementById("words_list").innerHTML = listitems_html;
     document.getElementById("number-words").innerHTML = "("+words_list.length+")";
@@ -85,6 +85,22 @@ const exportList = () => {
     setTimeout(() => {
         tooltip_element.classList.remove("active");
     }, 2000);
+}
+const toggleEditWord = (search_idx) => {
+    var editBtn = document.getElementById("edit-update-btn-"+search_idx);
+    editBtn.outerHTML = "<button class='btn btn-sm btn-warning mx-1' id='edit-update-btn-"+search_idx+"' onclick='editWord("+search_idx+")'>Update</button>";
+    
+    var inputField = document.getElementById("listword"+search_idx);
+    inputField.outerHTML = "<input type='text' id='listword"+search_idx+"'>";
+}
+const editWord = (search_idx) => {
+    let updated_word = document.getElementById("listword"+search_idx).value;
+    words_list[search_idx] = updated_word;
+    renderList();
+}
+const deleteWord = (search_idx) => {
+    words_list.splice(search_idx, 1);
+    renderList();
 }
 const listen_button = document.getElementById("play-audio");
 listen_button.onclick = async function () {
