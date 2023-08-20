@@ -13,3 +13,30 @@
 .navbar-page {
   margin: 20px 0px 20px 0px;
 }
+
+#tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+#tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  background-color: #333;
+  color: #fff;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+#tooltip.active::before {
+  opacity: 1;
+  visibility: visible;
+}

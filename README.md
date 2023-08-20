@@ -9,14 +9,15 @@
 5. When you're finished with the words, click Restore List and Show Words to view correct spellings
 6. Compare spellings with the ones you've written
 
-## Future Plans/Features
+## Future Plans/Features (#6 done)
 
 1. User should be able to upload image of spelling list, and the app will extract all words from it
 2. Words should be played randomly from the list.
 3. Listen to All Words, with appropriate time delay between words to mimic a real spelling bee contest.
 4. User should be able to define time gap between different words, between repeats of same word and number of repeats to adjust difficulty according to his grade.
 5. User should be able to have many lists to divide his work into segments and store them on his browser.
-6. User should be able to define his own words and pronnuciations for other languages. These pronunciations should be stored on browser's local storage too.
-7. User should get error if word's pronunciation is not found in any API, and the app should not let him add that word.
-8. User should be able to import and export his list of words (only words if in English, words and audio if in other languages)
-9. Better responsiveness and more user-friendly UI.
+6. User should be able to import a list of words with copy-paste and click, instead of adding words one by one.
+7. User should be able to define his own words and pronnuciations for other languages. These pronunciations should be stored on browser's local storage too.
+8. User should get error if word's pronunciation is not found in any API, and the app should not let him add that word.
+9. User should be able to import and export his list of words (only words if in English, words and audio if in other languages)
+10. Better responsiveness and more user-friendly UI.
