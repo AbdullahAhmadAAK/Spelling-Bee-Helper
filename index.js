@@ -84,12 +84,14 @@ listen_button.onclick = async function () {
     // if not, then recite from 2nd api phonetics,
     // if not, then recite from 3rd api phonetics
 
+    // generate a random index
+    const randomIndex = Math.floor(Math.random() * words_list.length);
 
-    reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+words_list[0]);
+    reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+words_list[randomIndex]);
     setTimeout( () => {
-        reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+words_list[0]);
-        words_list.shift();
-        renderListHidden();
+            reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+words_list[randomIndex]);
+            words_list.splice(randomIndex, 1);
+            renderListHidden();
         }, 
         4000
     );

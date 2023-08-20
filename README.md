@@ -9,7 +9,7 @@
 5. When you're finished with the words, click Restore List and Show Words to view correct spellings
 6. Compare spellings with the ones you've written
 
-## Future Plans/Features (#6 done)
+## Future Plans/Features (#2 #6 done)
 
 1. User should be able to upload image of spelling list, and the app will extract all words from it
 2. Words should be played randomly from the list.
