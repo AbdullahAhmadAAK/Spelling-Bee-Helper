@@ -10,7 +10,16 @@ const addWord = () => {
 }
 const addWordsList = () => {
     const input_words_list = document.getElementById("new_words_list").value;
-    let words_array = input_words_list.split(",");
+    let words_array = [];
+    if(input_words_list.includes(",")){
+        words_array = input_words_list.split(",");
+    }
+    else if(input_words_list.includes(" ")){
+        words_array = input_words_list.split(" ");
+    }
+    else{
+        words_array = [input_words_list];
+    }
     words_list = words_array;
     renderList();
     clearInputs();

@@ -2,7 +2,7 @@
 
 ## How to Use
 
-1. Type in the words you want to practice one by one (drudgery, but it's a one time thing)
+1. Type in the words you want to practice one by one OR at once (use Lens or similar app for reading words from photo)
 2. Click Save List and memorize
 3. Hide the Words when you're ready to practice
 4. Play the Words one by one and write down their spelling in your notebook.
@@ -11,7 +11,7 @@
 
 ## Future Plans/Features (#2 #6 done)
 
-1. User should be able to upload image of spelling list, and the app will extract all words from it
+1. User should be able to upload image of spelling list, and the app will extract all words from it (will need backend - later!)
 2. Words should be played randomly from the list.
 3. Listen to All Words, with appropriate time delay between words to mimic a real spelling bee contest.
 4. User should be able to define time gap between different words, between repeats of same word and number of repeats to adjust difficulty according to his grade.
@@ -22,4 +22,3 @@
 9. User should be able to import and export his list of words (only words if in English, words and audio if in other languages)
 10. Better responsiveness and more user-friendly UI.
 11. Remove/edit word from list
-12. 
