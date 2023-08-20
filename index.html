@@ -30,11 +30,17 @@
     </h3>
     <h2>Worry no more! AAK's Beetist has you covered.</h2> -->
 
+    <label for="new_word">Add word</label>
     <input type="text" id="new_word" value="" />
-    <label for=""> Add word </label>
 
+    <label for="new_words_list">Add all words</label>
+    <input type="text" id="new_words_list" value="" />
+    
     <button id="add-word-btn" onclick="addWord()">Add Word</button>
-    <button id="play-audios">Listen to 1 Word</button>
+    <button id="add-words-list-btn" onclick="addWordsList()">Add Words List</button>
+
+    <button id="play-audio">Listen to 1 Word</button>
+    <button id="play-all-audios">Listen to All Words</button>
     <button onclick="renderListHidden()">Hide Words</button>
     <button onclick="renderList()">Show Words</button>
     <button id="save-list" onclick="saveList()">Save List</button>
@@ -63,12 +69,24 @@
 
     <script>
       let words_list = [];
-      const listen_button = document.getElementById("play-audios");
+      
 
       const addWord = () => {
         const new_word = document.getElementById("new_word").value;
         words_list.push(new_word);
         renderList();
+        clearInputs();
+      }
+      const addWordsList = () => {
+        const input_words_list = document.getElementById("new_words_list").value;
+        let words_array = input_words_list.split(",");
+        words_list = words_array;
+        renderList();
+        clearInputs();
+      }
+      const clearInputs = () => {
+        document.getElementById("new_word").value = "";
+        document.getElementById("new_words_list").value = "";
       }
       async function reciteWord(url) {
         const response = await fetch(url);
@@ -116,6 +134,8 @@
         });
         document.getElementById("words_list").innerHTML = listitems_hidden_html;
       }
+
+      const listen_button = document.getElementById("play-audio");
       listen_button.onclick = async function () {
      
         /* NEW LOGIC (different response format for each) */
@@ -137,6 +157,33 @@
         
       };
       
+      // not working
+      const listen_all_button = document.getElementById("play-all-audios");
+      listen_all_button.onclick = async function () {
+        words_list.forEach(word => {
+
+          setTimeout(() => {
+            
+            
+            /* NEW LOGIC (different response format for each) */
+          
+            // if 1st api has phonetics, recite that
+            // if not, then recite from 2nd api phonetics,
+            // if not, then recite from 3rd api phonetics
+
+
+            reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
+            setTimeout( () => {
+                reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
+                words_list.shift();
+                renderListHidden();
+              }, 4000);
+
+
+          }, 5000);
+          
+        });
+      }
     </script>
   </body>
 </html>
