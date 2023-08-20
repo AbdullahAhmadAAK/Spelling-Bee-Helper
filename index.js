@@ -49,9 +49,10 @@ const restoreList = () => {
 const renderList = () => {
     var listitems_html = "";
     words_list.forEach(word => {
-        listitems_html += "<li class='list-group-item bg-info'>"+word+"</li>";
+        listitems_html += "<li class='list-group-item bg-info d-flex align-items-center'><div class='col text-start'>"+word+"</div><div class='col text-end'><button class='btn btn-sm btn-warning mx-1'>Edit</button><button class='btn btn-sm btn-danger mx-1'>Delete</button></div></li>";
     });
     document.getElementById("words_list").innerHTML = listitems_html;
+    document.getElementById("number-words").innerHTML = "("+words_list.length+")";
 }
 const removeList = () => {
     words_list = [];
@@ -64,6 +65,7 @@ const renderListHidden = () => {
         listitems_hidden_html += "<li class='list-group-item bg-info'>********</li>";
     });
     document.getElementById("words_list").innerHTML = listitems_hidden_html;
+    document.getElementById("number-words").innerHTML = "("+words_list.length+")";
 }
 const exportList = () => {
     words_output = words_list.join(",");
