@@ -4,9 +4,28 @@ let words_list = [];
 
 const addWord = () => {
     const new_word = document.getElementById("new_word").value;
-    words_list.push(new_word);
-    renderList();
-    clearInputs();
+    var add_word_input_element = document.getElementById("new_word");
+    if(phoneticsExist("https://api.dictionaryapi.dev/api/v2/entries/en/"+new_word))
+    {
+        words_list.push(new_word);
+        renderList();
+        clearInputs();
+    } else {
+        let error_msg = "Error: Audio not found for this word!";
+        add_word_input_element.style.backgroundColor = "#FF7276";
+        add_word_input_element.value = "";
+        add_word_input_element.setAttribute("placeholder", error_msg);
+    }
+
+    
+}
+async function phoneticsExist (url) {
+    const response = await fetch(url);
+    var data = await response.json();
+    if(data[0].phonetics == null || data[0].phonetics == "")
+        return false;
+    else
+        return true;
 }
 const addWordsList = () => {
     const input_words_list = document.getElementById("new_words_list").value;
@@ -27,26 +46,6 @@ const addWordsList = () => {
 const clearInputs = () => {
     document.getElementById("new_word").value = "";
     document.getElementById("new_words_list").value = "";
-}
-async function reciteWord(url) {
-    const response = await fetch(url);
-    var data = await response.json();
-
-    console.log(data[0].phonetics[0].audio); // this is string for mp3 file
-    const mp3_src = data[0].phonetics[0].audio;
-
-    const sound_box_element = document.getElementById("sounds-zone");
-
-    const audio_element = document.createElement("audio");
-    audio_element.setAttribute("autoplay", "");
-    // audio_element.setAttribute("controls", "");
-
-    const source_element = document.createElement("source");
-    source_element.setAttribute("src", mp3_src);
-    source_element.setAttribute("type", "audio/mp3");
-
-    audio_element.appendChild(source_element);
-    sound_box_element.appendChild(audio_element);
 }
 const saveList = () => {
     localStorage.setItem("wordsArray", JSON.stringify(words_list));
@@ -129,27 +128,37 @@ listen_button.onclick = async function () {
 // not working
 const listen_all_button = document.getElementById("play-all-audios");
 listen_all_button.onclick = async function () {
-    words_list.forEach(word => {
 
-        setTimeout(() => {
-        
-        
-        /* NEW LOGIC (different response format for each) */
-        
-        // if 1st api has phonetics, recite that
-        // if not, then recite from 2nd api phonetics,
-        // if not, then recite from 3rd api phonetics
+    for( const word of words_list){
+        for (let i = 0; i < 2; i++) {
+            await reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
+            if (i < 1) {
+                await sleep(4000); // Gap of 4 seconds between repetitions
+            }
+        }
+        words_list.splice(words_list.indexOf(word), 1);
+        renderList();
+        await sleep(4000);
+    }
+    
+}
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-        reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
-        setTimeout( () => {
-            reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/"+word);
-            words_list.shift();
-            renderListHidden();
-            }, 4000);
+async function reciteWord(url) {
 
+    const response = await fetch(url);
+    const data = await response.json();
 
-        }, 5000);
-        
+    const mp3Src = data[0].phonetics[0].audio;
+    
+    const audioElement = new Audio(mp3Src);
+    
+    audioElement.addEventListener("ended", () => {
+        audioElement.remove(); // Remove the audio element after playback ends
     });
+    
+    audioElement.play();
 }
