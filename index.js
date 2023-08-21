@@ -1,5 +1,7 @@
 
 let words_list = [];
+let time_delay = 4000; // 4s
+let number_repeats = 1; 
 
 
 const addWord = () => {
@@ -130,21 +132,21 @@ const listen_all_button = document.getElementById("play-all-audios");
 listen_all_button.onclick = async function () {
 
     for( const word of words_list){
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i <= number_repeats; i++) {
             await reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
-            if (i < 1) {
-                await sleep(4000); // Gap of 4 seconds between repetitions
+            if (i < number_repeats) {
+                await sleep(time_delay); // Gap of 4 seconds between repetitions
             }
         }
         words_list.splice(words_list.indexOf(word), 1);
         renderList();
-        await sleep(4000);
+        await sleep(time_delay);
     }
     
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, time_delay));
 }
 
 async function reciteWord(url) {
@@ -161,4 +163,21 @@ async function reciteWord(url) {
     });
     
     audioElement.play();
+}
+
+const saveConfig = () => {
+
+    // input validation
+
+    // if no error
+    number_repeats = document.getElementById("number-repeats").value;
+    time_delay = document.getElementById("seconds-delay").value * 1000;
+    
+    setTimeout(() => {
+        $('#exampleModal').modal('hide');
+    }, 2000);
+
+    
+    // const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    // modal.hide(); // Close the modal
 }
