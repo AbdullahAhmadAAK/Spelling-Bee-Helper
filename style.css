@@ -40,3 +40,7 @@
   opacity: 1;
   visibility: visible;
 }
+
+#settings-errors-area {
+  background-color: #FF7276;
+}

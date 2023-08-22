@@ -1,8 +1,36 @@
 
 let words_list = [];
-let time_delay = 4000; // 4s
-let number_repeats = 1; 
 
+
+let number_repeats = 0;
+if(localStorage.getItem("repeats"))
+    number_repeats = JSON.parse(localStorage.getItem("repeats"));
+else
+    number_repeats = 1; // default repeats set by developer
+    
+let time_delay_ms = 0; 
+if(localStorage.getItem("delay_ms"))
+    time_delay_ms = JSON.parse(localStorage.getItem("delay_ms"));
+else
+    time_delay_ms = 4; // default delay set by developer
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     updateSettings();
+//     document.getElementById("number-repeats").value = number_repeats;
+//     document.getElementById("seconds-delay").value = time_delay_ms/1000;
+// })
+
+const updateSettings = () => {
+    // initializing input elements
+    let repeats_input_element = document.getElementById("number-repeats");
+    let delay_input_element = document.getElementById("seconds-delay");
+    
+    // no need to check for errors. only correct input goes this far
+    repeats_input_element.value = number_repeats;
+    delay_input_element.value = time_delay_ms/1000;
+    localStorage.setItem("repeats", JSON.stringify(number_repeats));
+    localStorage.setItem("delay_ms", JSON.stringify(time_delay_ms));
+}
 
 const addWord = () => {
     const new_word = document.getElementById("new_word").value;
@@ -135,18 +163,18 @@ listen_all_button.onclick = async function () {
         for (let i = 0; i <= number_repeats; i++) {
             await reciteWord("https://api.dictionaryapi.dev/api/v2/entries/en/" + word);
             if (i < number_repeats) {
-                await sleep(time_delay); // Gap of 4 seconds between repetitions
+                await sleep(time_delay_ms); // Gap of 4 seconds between repetitions
             }
         }
         words_list.splice(words_list.indexOf(word), 1);
         renderList();
-        await sleep(time_delay);
+        await sleep(time_delay_ms);
     }
     
 }
 
 function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, time_delay));
+    return new Promise(resolve => setTimeout(resolve, time_delay_ms));
 }
 
 async function reciteWord(url) {
@@ -166,18 +194,75 @@ async function reciteWord(url) {
 }
 
 const saveConfig = () => {
-
+    // initializing input elements and setting them to current values
+    let repeats_input_element = document.getElementById("number-repeats");
+    let delay_input_element = document.getElementById("seconds-delay");
+    refreshConfigModalErrors();
     // input validation
+    let error_repeats = false;
+    let error_delay = false;
+    if(repeats_input_element.value < 0 || repeats_input_element.value > 4)
+        error_repeats = true;
+    if(delay_input_element.value < 3 || delay_input_element.value > 10)
+        error_delay = true;
 
     // if no error
-    number_repeats = document.getElementById("number-repeats").value;
-    time_delay = document.getElementById("seconds-delay").value * 1000;
-    
-    setTimeout(() => {
-        $('#exampleModal').modal('hide');
-    }, 2000);
+    if(!error_repeats && !error_delay){
+        number_repeats = document.getElementById("number-repeats").value;
+        time_delay_ms = document.getElementById("seconds-delay").value * 1000;
+        setTimeout(() => {
+            $('#exampleModal').modal('hide');
+        }, 2000);
+        updateSettings();
+    }
+    else{
+        let error_area = document.getElementById("settings-errors-area");
+        error_area.classList.remove("d-none");
 
-    
-    // const modal = new bootstrap.Modal(document.getElementById('exampleModal'));
-    // modal.hide(); // Close the modal
+        if(error_repeats) { // if error in repeats input
+            let message = "Error: Please type a number for repeats between 0 and 4 (inclusive)";
+            let paragraphElement = document.createElement("p");
+            paragraphElement.textContent = message;
+            error_area.appendChild(paragraphElement);
+
+            repeats_input_element.style.backgroundColor = "#fe9a9d";
+        }
+        if(error_delay) { // if error in delay input
+            let message = "Error: Please type a number for delay between 3 and 10 (inclusive)"
+            let paragraphElement = document.createElement("p");
+            paragraphElement.textContent = message;
+            error_area.appendChild(paragraphElement);
+
+            delay_input_element.style.backgroundColor = "#fe9a9d";
+        }
+    }
+}
+
+const refreshConfigModal = () => {
+    console.log(123);
+
+    refreshConfigModalErrors();
+
+    // initializing input elements
+    let repeats_input_element = document.getElementById("number-repeats");
+    let delay_input_element = document.getElementById("seconds-delay");
+
+    // setting them to current values
+    repeats_input_element.value = number_repeats;
+    delay_input_element.value = time_delay_ms/1000;
+}
+
+const refreshConfigModalErrors = () => {
+    // clears errors area and hides it
+    let error_area = document.getElementById("settings-errors-area");
+    error_area.classList.add("d-none");
+    error_area.innerHTML = "";
+
+    // clears repeats input area bg color
+    let repeats_input_element = document.getElementById("number-repeats");
+    repeats_input_element.style.backgroundColor =  "#ffffff";
+
+    // clears delay input area bg color
+    let delay_input_element = document.getElementById("seconds-delay");
+    delay_input_element.style.backgroundColor =  "#ffffff";
 }
