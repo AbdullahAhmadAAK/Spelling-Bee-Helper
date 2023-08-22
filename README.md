@@ -12,7 +12,6 @@
 ## Future Plans/Features
 
 1. User should be able to upload image of spelling list, and the app will extract all words from it (will need backend - later!)
-3. User should be able to define time gap between different words, between repeats of same word and number of repeats to adjust difficulty according to his grade. (error validation left!)
 4. User should be able to have many lists to divide his work into segments and store them on his browser.
 6. User should get error if word's pronunciation is not found in any API, and the app should not let him add that word.
 7. Better responsiveness and more user-friendly UI.
