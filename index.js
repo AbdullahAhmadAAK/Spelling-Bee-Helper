@@ -72,7 +72,7 @@ const addWordsList = () => {
 
     // add words to program's words_list
     words_array.forEach(word => {
-        if(!words_list.includes(word.toLowerCase())) {
+        if(words_list!=[] && !words_list.includes(word.toLowerCase())) {
             words_list.push(word.toLowerCase());
         }
     });
@@ -81,7 +81,6 @@ const addWordsList = () => {
     clearInputs();
 }
 const clearInputs = () => {
-    document.getElementById("new_word").value = "";
     document.getElementById("new_words_list").value = "";
 }
 const saveList = () => {
