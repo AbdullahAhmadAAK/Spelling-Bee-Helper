@@ -32,23 +32,23 @@ const updateSettings = () => {
     localStorage.setItem("delay_ms", JSON.stringify(time_delay_ms));
 }
 
-const addWord = () => {
-    const new_word = document.getElementById("new_word").value;
-    var add_word_input_element = document.getElementById("new_word");
-    if(phoneticsExist("https://api.dictionaryapi.dev/api/v2/entries/en/"+new_word))
-    {
-        words_list.push(new_word);
-        renderList();
-        clearInputs();
-    } else {
-        let error_msg = "Error: Audio not found for this word!";
-        add_word_input_element.style.backgroundColor = "#FF7276";
-        add_word_input_element.value = "";
-        add_word_input_element.setAttribute("placeholder", error_msg);
-    }
+// const addWord = () => {
+//     const new_word = document.getElementById("new_word").value;
+//     var add_word_input_element = document.getElementById("new_word");
+//     if(phoneticsExist("https://api.dictionaryapi.dev/api/v2/entries/en/"+new_word))
+//     {
+//         words_list.push(new_word);
+//         renderList();
+//         clearInputs();
+//     } else {
+//         let error_msg = "Error: Audio not found for this word!";
+//         add_word_input_element.style.backgroundColor = "#FF7276";
+//         add_word_input_element.value = "";
+//         add_word_input_element.setAttribute("placeholder", error_msg);
+//     }
 
     
-}
+// }
 async function phoneticsExist (url) {
     const response = await fetch(url);
     var data = await response.json();
@@ -69,7 +69,14 @@ const addWordsList = () => {
     else{
         words_array = [input_words_list];
     }
-    words_list = words_array;
+
+    // add words to program's words_list
+    words_array.forEach(word => {
+        if(!words_list.includes(word.toLowerCase())) {
+            words_list.push(word.toLowerCase());
+        }
+    });
+    // words_list = words_array;
     renderList();
     clearInputs();
 }
