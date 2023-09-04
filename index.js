@@ -72,7 +72,7 @@ const addWordsList = () => {
 
     // add words to program's words_list
     words_array.forEach(word => {
-        if(words_list!=[] && !words_list.includes(word.toLowerCase())) {
+        if(words_list!=[] && !words_list.includes(word.toLowerCase())) { // if unique
             words_list.push(word.toLowerCase());
         }
     });
