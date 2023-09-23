@@ -26,12 +26,22 @@
             <a class="nav-link" href="email-assistant.html">Email Assistant</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Pixel Adjuster</a>
+            <a class="nav-link" href="#">Pixels Adjuster</a>
           </li>
         </ul>
       </div>
     </nav>
 
+    <form action="javascript:void(0)" onsubmit="savePixels()">
+      <h4>Model your new resized pixels on these!</h4>
+      <label for="model_width">Width</label>
+      <input type="number" id="model_width" class="form-control-sm" required min="1">
+      <label for="model_height">Length</label>
+      <input type="number" id="model_height" class="form-control-sm" required min="1">
+      <button type="submit">Save Model</button>
+    </form>
+
+    <input type="text">
     
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
