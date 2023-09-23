@@ -19,7 +19,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Spelling Bee Helper</a>
+            <a class="nav-link" href="index.html">Spelling Bee Helper</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Email Assistant</a>
@@ -30,7 +30,19 @@
 
     <div class="row justify-content-center align-items-center">
         <div class="col-6 bg-light p-4 border" id="left-col" style="border-color: rgb(139, 0, 0) !important; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+          <form id="addLetterForm">
+        
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="subject" required>
+            </div>
             
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea class="form-control" id="content" cols="100" rows="10" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
         </div>
         <div class="col-2 bg-info p-4 align-self-stretch" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
             <h3>Pending Emails:</h3>
