@@ -32,16 +32,25 @@
       </div>
     </nav>
 
+    <br>
+    <br>
+
     <form action="javascript:void(0)" onsubmit="savePixels()">
       <h4>Model your new resized pixels on these!</h4>
       <label for="model_width">Width</label>
       <input type="number" id="model_width" class="form-control-sm" required min="1">
-      <label for="model_height">Length</label>
+      <label for="model_height">Height</label>
       <input type="number" id="model_height" class="form-control-sm" required min="1">
       <button type="submit">Save Model</button>
     </form>
 
-    <input type="text">
+    <br><br>
+
+    <h4>Dynamically adjustable pixels!</h4>
+    <label for="resized_width">Width</label>
+    <input type="text" id="resized_width">
+    <label for="resized_height">Height</label>
+    <input type="text" id="resized_height">
     
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
