@@ -42,5 +42,10 @@ const startSending = () => {
     const emailInstance = company_obj.email
 
     // display it
-    document.getElementById('left-col').innerHTML = `<h3>${subj}</h3><h4>To ${emailInstance}</h4><p>${contentInstance}</p>`
+    document.getElementById('left-col').innerHTML = `
+        <h3>${subj}</h3>
+        <h4>To ${emailInstance}</h4>
+        <p>${contentInstance}</p>
+        <button class="btn btn-success" onclick="startSending()">Send Next</button>
+    `
 }
